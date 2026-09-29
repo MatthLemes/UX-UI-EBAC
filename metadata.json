@@ -1,0 +1,6 @@
+{
+  "name": "Ket - Calculadora de Supermercado",
+  "description": "App mobile para cálculo automático e controle de gastos em tempo real no supermercado brasileiro. Evite surpresas no caixa e economize.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
