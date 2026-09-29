@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { CartItem, Market } from '../types';
 import { MARKETS } from '../data/mockData';
-import ketCelebrationImg from '../assets/images/ket_celebrating_1790683668177.jpg';
+import ketCelebrationImg from '../assets/images/ket_official_supermarket_1790697750637.jpg';
 import {
   PiggyBank,
   Share2,

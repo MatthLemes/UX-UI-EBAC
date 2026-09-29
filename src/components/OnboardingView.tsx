@@ -1,21 +1,40 @@
 import React from 'react';
 import { Sparkles, ScanLine, Calculator, ArrowRight, ShieldCheck, HeartHandshake } from 'lucide-react';
-import ketAvatarImg from '../assets/images/ket_mascot_avatar_1790683656514.jpg';
+import ketAvatarImg from '../assets/images/ket_official_supermarket_1790697750637.jpg';
 
 interface OnboardingViewProps {
   onStart: () => void;
   onOpenCaseStudy: () => void;
+  onOpenProfile?: () => void;
 }
 
-export const OnboardingView: React.FC<OnboardingViewProps> = ({ onStart, onOpenCaseStudy }) => {
+export const OnboardingView: React.FC<OnboardingViewProps> = ({ onStart, onOpenCaseStudy, onOpenProfile }) => {
   return (
     <div className="min-h-full flex flex-col justify-between p-5 bg-gradient-to-b from-orange-50/50 via-white to-orange-50/30">
-      {/* Top Brand Hero */}
-      <div className="text-center pt-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-100/80 border border-orange-200 text-orange-800 text-xs font-semibold mb-3">
+      {/* Top Header with persistent Profile tab on the right */}
+      <div className="flex items-center justify-between mb-3 pt-1">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-100/80 border border-orange-200 text-orange-800 text-xs font-semibold">
           <Sparkles className="w-3.5 h-3.5 text-orange-600" />
           <span>Case UX/UI por Matheus Lemes</span>
         </div>
+
+        {onOpenProfile && (
+          <button
+            onClick={onOpenProfile}
+            aria-label="Acessar Perfil"
+            className="flex items-center gap-1.5 pl-1.5 pr-2.5 py-1 rounded-full bg-white hover:bg-orange-50 border border-neutral-200 hover:border-orange-400 shadow-xs text-xs font-bold text-neutral-800 transition-all active:scale-95"
+            title="Acessar Perfil"
+          >
+            <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-orange-600 to-amber-500 text-white flex items-center justify-center font-black text-[10px] shadow-xs">
+              M
+            </div>
+            <span className="text-[11px] text-orange-950 font-extrabold">Perfil</span>
+          </button>
+        )}
+      </div>
+
+      {/* Top Brand Hero */}
+      <div className="text-center pt-1">
 
         <div className="relative mx-auto w-32 h-32 mb-4">
           <div className="w-full h-full rounded-3xl overflow-hidden border-4 border-white shadow-xl bg-gradient-to-br from-orange-400 to-amber-500">

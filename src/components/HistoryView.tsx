@@ -17,9 +17,10 @@ interface HistoryViewProps {
   trips: ShoppingTrip[];
   onBack: () => void;
   onReuseTrip?: (trip: ShoppingTrip) => void;
+  onOpenProfile?: () => void;
 }
 
-export const HistoryView: React.FC<HistoryViewProps> = ({ trips, onBack, onReuseTrip }) => {
+export const HistoryView: React.FC<HistoryViewProps> = ({ trips, onBack, onReuseTrip, onOpenProfile }) => {
   const [expandedTripId, setExpandedTripId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -47,9 +48,24 @@ export const HistoryView: React.FC<HistoryViewProps> = ({ trips, onBack, onReuse
           </button>
           <h2 className="text-base font-extrabold text-neutral-900">Histórico de Compras</h2>
         </div>
-        <span className="text-xs font-semibold text-neutral-500">
-          {trips.length} {trips.length === 1 ? 'ida ao mercado' : 'idas ao mercado'}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-semibold text-neutral-500">
+            {trips.length} {trips.length === 1 ? 'ida' : 'idas'}
+          </span>
+          {onOpenProfile && (
+            <button
+              onClick={onOpenProfile}
+              aria-label="Acessar Perfil"
+              className="flex items-center gap-1.5 pl-1 pr-2.5 py-1 rounded-full bg-neutral-100 hover:bg-orange-50 border border-neutral-200 hover:border-orange-300 text-xs font-bold text-neutral-800 transition-all shadow-xs"
+              title="Acessar Perfil"
+            >
+              <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-orange-600 to-amber-500 text-white flex items-center justify-center font-black text-[10px]">
+                M
+              </div>
+              <span className="text-[11px] text-orange-950 font-extrabold">Perfil</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Aggregate Stats Card */}

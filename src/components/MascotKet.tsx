@@ -1,7 +1,7 @@
 import React from 'react';
 import { KetMood } from '../types';
-import ketAvatarImg from '../assets/images/ket_mascot_avatar_1790683656514.jpg';
-import ketCelebrationImg from '../assets/images/ket_celebrating_1790683668177.jpg';
+import ketAvatarImg from '../assets/images/ket_official_supermarket_1790697750637.jpg';
+import ketCelebrationImg from '../assets/images/ket_official_supermarket_1790697750637.jpg';
 
 interface MascotKetProps {
   mood?: KetMood;

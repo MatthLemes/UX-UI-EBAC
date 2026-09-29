@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { UserProfile, ShoppingTrip } from '../types';
-import ketAvatarImg from '../assets/images/ket_mascot_avatar_1790683656514.jpg';
-import ketCelebrationImg from '../assets/images/ket_celebrating_1790683668177.jpg';
+import ketAvatarImg from '../assets/images/ket_official_supermarket_1790697750637.jpg';
+import ketCelebrationImg from '../assets/images/ket_official_supermarket_1790697750637.jpg';
 import { MascotKet } from './MascotKet';
 import {
   User,
@@ -20,6 +20,8 @@ import {
   AlertTriangle,
   ShieldAlert,
   ChevronRight,
+  ArrowLeft,
+  X,
 } from 'lucide-react';
 
 interface ProfileViewProps {
@@ -29,6 +31,8 @@ interface ProfileViewProps {
   onClearHistory: () => void;
   onDeleteAccount: () => void;
   onCreateNewUser: (name: string, email: string) => void;
+  onOpenBehanceKit?: () => void;
+  onBack?: () => void;
 }
 
 export const ProfileView: React.FC<ProfileViewProps> = ({
@@ -38,6 +42,8 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   onClearHistory,
   onDeleteAccount,
   onCreateNewUser,
+  onOpenBehanceKit,
+  onBack,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editName, setEditName] = useState(profile.name);
@@ -82,17 +88,46 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
       {/* Profile Header */}
       <div className="p-5 bg-gradient-to-b from-orange-500 to-orange-600 text-white relative">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-orange-200">
-            Meu Perfil & Preferências
-          </span>
-          <button
-            type="button"
-            onClick={() => setIsEditing(!isEditing)}
-            className="flex items-center gap-1 text-xs font-bold bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-xl transition-all"
-          >
-            <Edit3 className="w-3.5 h-3.5" />
-            <span>{isEditing ? 'Cancelar' : 'Editar'}</span>
-          </button>
+          <div className="flex items-center gap-2">
+            {onBack && (
+              <button
+                type="button"
+                onClick={onBack}
+                aria-label="Voltar para a tela anterior"
+                className="flex items-center gap-1.5 text-xs font-bold bg-white/20 hover:bg-white/30 text-white px-2.5 py-1.5 rounded-xl transition-all shadow-xs active:scale-95"
+                title="Voltar"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Voltar</span>
+              </button>
+            )}
+            <span className="text-[11px] font-bold uppercase tracking-wider text-orange-200">
+              Meu Perfil & Preferências
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setIsEditing(!isEditing)}
+              className="flex items-center gap-1 text-xs font-bold bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-xl transition-all"
+            >
+              <Edit3 className="w-3.5 h-3.5" />
+              <span>{isEditing ? 'Cancelar' : 'Editar'}</span>
+            </button>
+
+            {onBack && (
+              <button
+                type="button"
+                onClick={onBack}
+                aria-label="Fechar Perfil"
+                className="p-1.5 bg-black/20 hover:bg-black/30 rounded-xl text-white transition-all"
+                title="Fechar Perfil"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
         </div>
 
         <div className="flex items-center gap-4">
@@ -299,6 +334,33 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           <h4 className="text-xs font-black uppercase text-neutral-400 tracking-wider mb-2">
             Gerenciamento de Conta
           </h4>
+
+          {/* Export to Behance & Download - Restricted exclusively to Matheus Lemes (Admin) */}
+          {onOpenBehanceKit && profile.email === 'matheusribeirolemes15@gmail.com' && (
+            <div className="p-3 rounded-2xl bg-neutral-900 text-white mb-2 shadow-sm border border-neutral-800">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-orange-400">
+                    Área do Administrador
+                  </span>
+                </div>
+                <span className="text-[10px] text-neutral-400">Acesso Restrito</span>
+              </div>
+
+              <button
+                type="button"
+                onClick={onOpenBehanceKit}
+                className="w-full py-2.5 px-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-left flex items-center justify-between text-xs font-bold text-white shadow-xs transition-all active:scale-98"
+              >
+                <div className="flex items-center gap-2">
+                  <Award className="w-4 h-4 text-white shrink-0" />
+                  <span>Acessar Slides do Behance & Baixar PDF Horizontal</span>
+                </div>
+                <ChevronRight className="w-4 h-4 text-white/80 shrink-0" />
+              </button>
+            </div>
+          )}
 
           {/* Create new / Switch user */}
           <button

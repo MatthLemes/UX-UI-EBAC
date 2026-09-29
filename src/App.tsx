@@ -31,11 +31,13 @@ import { PlannedListDrawer } from './components/PlannedListDrawer';
 import { SplitCartModal } from './components/SplitCartModal';
 import { SmartSwapsModal } from './components/SmartSwapsModal';
 import { ReceiptAuditModal } from './components/ReceiptAuditModal';
+import { BehanceKitModal } from './components/BehanceKitModal';
 import ketAvatarImg from './assets/images/ket_mascot_avatar_1790683656514.jpg';
 import {
   Smartphone,
   Maximize2,
   BookOpen,
+  Download,
 } from 'lucide-react';
 
 const INITIAL_PROFILE: UserProfile = {
@@ -51,6 +53,7 @@ const INITIAL_PROFILE: UserProfile = {
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<ScreenId>('onboarding');
+  const [previousScreen, setPreviousScreen] = useState<ScreenId>('onboarding');
   const [market, setMarket] = useState<Market>(MARKETS[0]);
   const [budget, setBudget] = useState<number>(200);
   const [profile, setProfile] = useState<UserProfile>(INITIAL_PROFILE);
@@ -93,6 +96,7 @@ export default function App() {
   const [isSplitCartOpen, setIsSplitCartOpen] = useState<boolean>(false);
   const [isSmartSwapsOpen, setIsSmartSwapsOpen] = useState<boolean>(false);
   const [isReceiptAuditOpen, setIsReceiptAuditOpen] = useState<boolean>(false);
+  const [isBehanceKitOpen, setIsBehanceKitOpen] = useState<boolean>(false);
 
   const [plannedItems, setPlannedItems] = useState<PlannedItem[]>([
     { id: 'plan-1', name: 'Nescau Cereal', checked: true },
@@ -270,6 +274,19 @@ export default function App() {
     setCurrentScreen('budget_setup');
   };
 
+  const handleOpenProfile = () => {
+    if (currentScreen !== 'profile') {
+      setPreviousScreen(currentScreen);
+      setCurrentScreen('profile');
+    } else {
+      setCurrentScreen(previousScreen);
+    }
+  };
+
+  const handleBackFromProfile = () => {
+    setCurrentScreen(previousScreen);
+  };
+
   // Determine screen header title
   const getScreenTitle = () => {
     switch (currentScreen) {
@@ -323,7 +340,7 @@ export default function App() {
             className="flex items-center gap-1.5 px-3 py-1.5 bg-orange-600/20 hover:bg-orange-600/30 text-orange-400 border border-orange-500/30 rounded-xl font-bold transition-all"
           >
             <BookOpen className="w-3.5 h-3.5" />
-            <span>Ver Pesquisa e Metodologia</span>
+            <span>Ver Pesquisa EBAC</span>
           </button>
 
           <button
@@ -381,6 +398,7 @@ export default function App() {
             onOpenCart={() => setCurrentScreen('cart_list')}
             onOpenMarketSelect={() => setCurrentScreen('market_select')}
             onOpenCaseStudy={() => setIsCaseStudyOpen(true)}
+            onOpenProfile={handleOpenProfile}
           />
         )}
 
@@ -390,6 +408,7 @@ export default function App() {
             <OnboardingView
               onStart={() => setCurrentScreen('budget_setup')}
               onOpenCaseStudy={() => setIsCaseStudyOpen(true)}
+              onOpenProfile={handleOpenProfile}
             />
           )}
 
@@ -462,6 +481,7 @@ export default function App() {
               trips={trips}
               onBack={() => setCurrentScreen('scanner')}
               onReuseTrip={handleReuseTrip}
+              onOpenProfile={handleOpenProfile}
             />
           )}
 
@@ -473,6 +493,8 @@ export default function App() {
               onClearHistory={handleClearHistory}
               onDeleteAccount={handleDeleteAccount}
               onCreateNewUser={handleCreateNewUser}
+              onOpenBehanceKit={() => setIsBehanceKitOpen(true)}
+              onBack={handleBackFromProfile}
             />
           )}
         </main>
@@ -545,6 +567,12 @@ export default function App() {
         onClose={() => setIsReceiptAuditOpen(false)}
         cartItems={cartItems}
         market={market}
+      />
+
+      {/* Behance Kit & Project Download Modal */}
+      <BehanceKitModal
+        isOpen={isBehanceKitOpen}
+        onClose={() => setIsBehanceKitOpen(false)}
       />
     </div>
   );

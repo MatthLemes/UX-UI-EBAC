@@ -10,6 +10,7 @@ interface HeaderHUDProps {
   onOpenCart?: () => void;
   onOpenMarketSelect?: () => void;
   onOpenCaseStudy?: () => void;
+  onOpenProfile?: () => void;
   onBack?: () => void;
   showBack?: boolean;
   currentScreenTitle?: string;
@@ -23,6 +24,7 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
   onOpenCart,
   onOpenMarketSelect,
   onOpenCaseStudy,
+  onOpenProfile,
   onBack,
   showBack = false,
   currentScreenTitle,
@@ -113,6 +115,21 @@ export const HeaderHUD: React.FC<HeaderHUDProps> = ({
                   {itemCount}
                 </span>
               )}
+            </button>
+          )}
+
+          {/* Persistent Top-Right Profile Tab */}
+          {onOpenProfile && (
+            <button
+              onClick={onOpenProfile}
+              aria-label="Acessar Perfil e Painel"
+              className="flex items-center gap-1.5 pl-1 pr-2.5 py-0.5 rounded-full bg-gradient-to-r from-orange-50 to-amber-50 hover:from-orange-100 hover:to-amber-100 border border-orange-200 text-neutral-800 text-xs font-bold transition-all shadow-2xs hover:shadow-xs active:scale-95 ml-0.5"
+              title="Acessar Perfil"
+            >
+              <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-orange-600 to-amber-500 text-white flex items-center justify-center font-black text-[10px] shadow-xs">
+                M
+              </div>
+              <span className="text-[11px] text-orange-950 font-extrabold">Perfil</span>
             </button>
           )}
         </div>
